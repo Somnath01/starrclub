@@ -1,7 +1,6 @@
 import random
 import requests
-from telegram import Update
-from telegram.ext import Application, CommandHandler, CallbackContext
+import telebot
 
 # Define the function that gets the data from the API
 def get_prediction():
@@ -16,28 +15,19 @@ def get_prediction():
     else:
         return "Failed to fetch predictions."
 
-# Define a start command for the bot
-async def start(update: Update, context: CallbackContext) -> None:
-    await update.message.reply_text('Welcome! I will provide you with random predictions. Type /predict to get one.')
+# Create the bot object
+bot = telebot.TeleBot('7779227091:AAGAfk_PbWWlqL1ZjsEQ5wPKpDo97Y2oxJE')  # Replace with your bot's API token
 
-# Define a command for fetching random prediction
-async def predict(update: Update, context: CallbackContext) -> None:
+# Define start command
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.reply_to(message, "Welcome! I will provide you with random predictions. Type /predict to get one.")
+
+# Define predict command
+@bot.message_handler(commands=['predict'])
+def predict(message):
     prediction = get_prediction()
-    await update.message.reply_text(prediction)
+    bot.reply_to(message, prediction)
 
-# Main function to start the bot
-def main():
-    token = "7779227091:AAGAfk_PbWWlqL1ZjsEQ5wPKpDo97Y2oxJE"  # Replace with your bot's API token
-    
-    # Create the Application object
-    application = Application.builder().token(token).build()
-    
-    # Add handlers for commands
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("predict", predict))
-    
-    # Start the bot
-    application.run_polling()
-
-if __name__ == '__main__':
-    main()
+# Start polling
+bot.polling()
