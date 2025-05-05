@@ -27,7 +27,7 @@ def predict(update: Update, context: CallbackContext) -> None:
 
 # Main function to start the bot
 def main():
-    token = 'YOUR_BOT_API_TOKEN'  # Replace with your bot's API token
+    token = '7779227091:AAGAfk_PbWWlqL1ZjsEQ5wPKpDo97Y2oxJE'  # Replace with your bot's API token
     updater = Updater(token, use_context=True)
     
     # Add handlers for commands
