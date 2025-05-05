@@ -27,7 +27,7 @@ async def predict(update: Update, context: CallbackContext) -> None:
 
 # Main function to start the bot
 def main():
-    token = '7779227091:AAGAfk_PbWWlqL1ZjsEQ5wPKpDo97Y2oxJE'  # Replace with your bot's API token
+    token = 'YOUR_BOT_API_TOKEN'  # Replace with your bot's API token
     
     # Create the Application object
     application = Application.builder().token(token).build()
